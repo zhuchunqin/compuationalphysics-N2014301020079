@@ -2,6 +2,7 @@
 #材料物理 朱春琴
 #Homework list
 ##[Exercise_01](https://www.zybuluo.com/zhuchunqin/note/497741)
+##[Exercise_02](https://www.zybuluo.com/zhuchunqin/note/497741)
 ##[Exercise_03](https://www.zybuluo.com/zhuchunqin/note/498036)
 ##[Exercise_04](https://www.zybuluo.com/zhuchunqin/note/498042)
 ##[Exercise_05](https://www.zybuluo.com/zhuchunqin/note/498052)
