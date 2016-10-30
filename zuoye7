@@ -1,0 +1,47 @@
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+import math
+class pendulum_1:
+    def __init__(self,time_step=0,theta1=0,theta2=0,time_of_duration = 0,F_d=0.5,gl=1,q=0.5):
+        self.theta1=[theta1]
+        self.theta2=[theta2]
+        self.dt = time_step
+        self.F_D=F_D
+        self.q=q
+        self.gl=gl
+        self.t=[0]
+        self.w1=[0]
+        self.w2=[0]
+        self.nsteps = int(time_of_duration // time_step + 1)
+    def calculate(self):
+        self.v=[]
+        wd=float(2.0/3)
+        for i in range(self.nsteps):
+            self.w1.append(self.w1[i]+(-math.sin(self.theta1[i])-self.q*self.w1[i]+self.fd*math.sin(wd*self.t[i]))*self.dt)
+            self.theta1.append(self.theta1[i]+self.w1[i+1]*self.dt)
+            self.w2.append(self.w2[i]+(-math.sin(self.theta2[i])-self.q*self.w2[i]+self.fd*math.sin(wd*self.t[i]))*self.dt)
+            self.theta2.append(self.theta2[i]+self.w2[i+1]*self.dt)
+            self.t.append(self.t[i] + self.dt)
+            self.v=list(map(lambda x:math.log(abs(x[0]-x[1])),zip(self.theta1,self.theta2)))
+            if self.theta1[i+1]<-math.pi:
+                self.theta1[i+1]=self.theta1[i+1]+2*math.pi
+            if self.theta1[i+1]>math.pi:
+                self.theta1[i+1]=self.theta1[i+1]-2*math.pi
+            if self.theta2[i+1]<-math.pi:
+                self.theta2[i+1]=self.theta2[i+1]+2*math.pi
+            if self.theta2[i+1]>math.pi:
+                self.theta2[i+1]=self.theta2[i+1]-2*math.pi
+            
+        return 0
+    def show_results(self,color):
+        plt.plot(self.t,self.v,color,label="fd=%r"%(self.fd))
+        #plt.annotate('log|theta1-theta2|',xy=(30,-15),xytext=(30,-12),arrowprops=dict(facecolor='red',shrink=1),)
+        plt.title('difference of theta versus time  fd=1.2')
+        plt.xlabel('time/s')
+        plt.ylabel('difference of theta/radians')
+a=pendulum_1(0.02,0.200,0.199,60,1.2,0.5)
+a.calculate()
+a.show_results('blue')
+plt.legend()
+plt.show()
